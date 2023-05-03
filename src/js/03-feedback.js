@@ -7,11 +7,15 @@ const STORAGE_KEY = 'feedback-form-state';
 
 form.addEventListener('input', throttle(onFormInput, 500));
 
-function onFormInput() {
-  const state = {
+function createStateObj() {
+  return {
     email: emailInput.value,
     message: messageInput.value,
   };
+}
+
+function onFormInput() {
+  const state = createStateObj();
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
@@ -30,8 +34,8 @@ form.addEventListener('submit', onSumbit);
 function onSumbit(event) {
   event.preventDefault();
 
-  console.log(emailInput.value);
-  console.log(messageInput.value);
+  const state = createStateObj();
+  console.log(state);
 
   localStorage.removeItem(STORAGE_KEY);
   emailInput.value = '';
